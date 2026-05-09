@@ -254,7 +254,11 @@ async function main() {
   }
 }
 
-if (import.meta.url === `file://${process.argv[1].replace(/\\/g, "/")}` || import.meta.url.endsWith(process.argv[1].replace(/\\/g, "/"))) {
+const isMain = process.argv[1] && (
+  import.meta.url === `file://${process.argv[1].replace(/\\/g, "/")}` ||
+  import.meta.url.endsWith(process.argv[1].replace(/\\/g, "/"))
+);
+if (isMain) {
   main().catch((e) => {
     console.error(e.message);
     process.exit(1);
