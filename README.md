@@ -2,6 +2,8 @@
 
 > Audit any PocketBase instance for over-permissive API rules. Get a shareable HTML report with a fix snippet on every finding. **The active probe fetches data anonymously to PROVE leaks live — not just infer them.**
 
+> ▶ **Run it without installing anything →** [apify.com/renzomacar/pocketbase-security-auditor](https://apify.com/renzomacar/pocketbase-security-auditor) (paste PocketBase URL + admin email/password, get HTML report)
+
 > ⚡ Want me to run it for you and send back a written report? **$99, 24h delivery →** https://perufitlife.github.io/supabase-security-skill/ (one landing covers all five — Supabase, PocketBase, Appwrite, Hasura, Firebase)
 
 ## Why this exists
