@@ -2,6 +2,8 @@
 
 > Audit any PocketBase instance for over-permissive API rules. Get a shareable HTML report with a fix snippet on every finding. **The active probe fetches data anonymously to PROVE leaks live — not just infer them.**
 
+> ⚡ Want me to run it for you and send back a written report? **$99, 24h delivery →** https://perufitlife.github.io/supabase-security-skill/ (one landing covers all four — Supabase, PocketBase, Appwrite, Hasura)
+
 ## Why this exists
 
 PocketBase API rules are easy to write and easy to leave too open. Three patterns I see over and over:
