@@ -7,9 +7,16 @@
     "pocketbase-security": "./scripts/audit.js"
   },
   "scripts": {
-    "audit": "node scripts/audit.js"
+    "audit": "node scripts/audit.js",
+    "postinstall": "node scripts/postinstall.js || true"
   },
-  "keywords": ["pocketbase", "security", "audit", "api-rules", "rls"],
+  "keywords": [
+    "pocketbase",
+    "security",
+    "audit",
+    "api-rules",
+    "rls"
+  ],
   "author": "Renzo Madueno (@Perufitlife)",
   "license": "MIT",
   "repository": {
