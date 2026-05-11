@@ -1,6 +1,6 @@
 {
   "name": "pocketbase-security",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Audit PocketBase projects for permissive API rules. Detects empty rules, over-permissive auth.id != '' grants, missing admin gates. Active probe confirms leaks live with anonymous fetch.",
   "type": "module",
   "bin": {

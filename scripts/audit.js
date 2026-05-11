@@ -225,8 +225,38 @@ export async function audit(opts) {
 async function main() {
   const args = process.argv.slice(2);
   if (args.includes("--help") || args.includes("-h")) {
-    console.error(`Usage: pocketbase-security [--url URL --email E --password P] [--no-probe] [--json|--html report.html]\n\nEnv vars: POCKETBASE_URL, POCKETBASE_ADMIN_EMAIL, POCKETBASE_ADMIN_PASSWORD\n\nDetects: empty rules (fully public), over-permissive @request.auth.id != "", dangerous literals, open signup combos.\nActive probe (default ON) hits the public API anonymously to PROVE leaks.`);
+    console.error(`Usage:
+  Full audit (needs admin credentials):
+    pocketbase-security [--url URL --email E --password P] [--no-probe] [--json|--html report.html]
+
+  Keyless discover (parses local repo + probes only with public API):
+    pocketbase-security --discover [path]        # path defaults to cwd
+    pocketbase-security --discover . --url https://my.pb.io  # override URL
+
+Env vars: POCKETBASE_URL, POCKETBASE_ADMIN_EMAIL, POCKETBASE_ADMIN_PASSWORD
+
+Detects: empty rules (fully public), over-permissive @request.auth.id != "", dangerous literals, open signup combos.
+--discover: no admin needed; parses .collection() call sites, probes public API.`);
     process.exit(1);
+  }
+
+  // --discover mode (v0.2): no admin needed.
+  if (args.includes("--discover")) {
+    const { discover } = await import("./discover.js");
+    const idx = args.indexOf("--discover");
+    const path = args[idx + 1] && !args[idx + 1].startsWith("--") ? args[idx + 1] : process.cwd();
+    const urlOverride = args.includes("--url") ? args[args.indexOf("--url") + 1] : null;
+    const result = await discover({ root: path, pbUrl: urlOverride });
+
+    const htmlIdx = args.indexOf("--html");
+    if (htmlIdx !== -1) {
+      const out = args[htmlIdx + 1] || "discover-report.html";
+      const { renderHtml } = await import("./report.js");
+      writeFileSync(out, renderHtml(result));
+      console.error(`Discover report written to ${out}`);
+    }
+    console.log(JSON.stringify(result, null, 2));
+    return;
   }
 
   const flag = (k) => args.includes(k) ? args[args.indexOf(k) + 1] : null;
@@ -237,6 +267,8 @@ async function main() {
 
   if (!url || !email || !password) {
     console.error("Error: provide --url, --email, --password (or POCKETBASE_URL / POCKETBASE_ADMIN_EMAIL / POCKETBASE_ADMIN_PASSWORD env vars)");
+    console.error("\nTip: try --discover for a keyless scan of your local repo:");
+    console.error("  pocketbase-security --discover .");
     process.exit(1);
   }
 
