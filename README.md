@@ -77,6 +77,15 @@ You created one when you initialized PocketBase. If you forgot, reset it via the
 
 The password is used only for this run's admin auth call (collections endpoint requires admin token). The auditor never persists it.
 
+
+## Sister AI text tools
+
+If your team writes outreach, PR descriptions, or social posts with AI, the [aitells](https://aitells.vercel.app) ecosystem catches the fingerprints before they ship:
+
+- [`@perufitlife/aitells-mcp`](https://www.npmjs.com/package/@perufitlife/aitells-mcp) — MCP server for Claude Code / Cursor. `detect_ai_tells` + `humanize_text` as native tools.
+- [`Perufitlife/aitells-action`](https://github.com/Perufitlife/aitells-action) — GitHub Action that scans PR titles/bodies/commits for AI patterns. Posts friendly summary comment.
+- [aitells.vercel.app](https://aitells.vercel.app) — free detector + $19 lifetime humanizer (first 100 buyers)
+
 ## License
 
 MIT. Free, open source. Built by [@Perufitlife](https://github.com/Perufitlife).
